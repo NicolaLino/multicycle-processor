@@ -1,0 +1,4 @@
+i<>.\src\InstructionMem.v
+i<>.\src\Add.v
+i<>.\src\regfile.v
+i<>.\src\register.v

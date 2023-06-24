@@ -1,0 +1,73 @@
+timestamp=1687615925881
+
+[~A]
+C:/Users/Nicola/Desktop/Code/Simple-RISC-Processor/RISC_Processor/mips processor/src/Add.v=0*31147*32430
+C:/Users/Nicola/Desktop/Code/Simple-RISC-Processor/RISC_Processor/mips processor/src/InstructionMem.v=0*127751*128933
+C:/Users/Nicola/Desktop/Code/Simple-RISC-Processor/RISC_Processor/mips processor/src/InstructionMem.v_Add.v_regfile.v=0*71587*74545
+C:/Users/Nicola/Desktop/Code/Simple-RISC-Processor/RISC_Processor/mips processor/src/instructionmemory.v=0*41059*42228
+C:/Users/Nicola/Desktop/Code/Simple-RISC-Processor/RISC_Processor/mips processor/src/test.v=0*60597*61737
+LastVerilogToplevel=instrmemstimulus
+ModifyID=51
+Version=74
+
+[~MFT]
+0=7|0mips_processor.mgf|128933|83881
+1=6|1mips_processor.mgf|412653|386469
+3=12|3mips_processor.mgf|167588|159758
+
+[$root]
+A/$root=22|||1*406362
+BinW64/$root=3*164726
+SLP=3*164841
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|c73a565f2ade592f8ac1c68f484c921694ca4c9e29c6fcccb70067dd3c8158ae
+
+[Add]
+A/Add=22|../src/Add.v|19|1*230841
+BinW64/Add=3*96164
+R=../src/Add.v|19
+SLP=3*96277
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|803e99bffe04288ee544c0a00aa00bd65fe2e5f71235523ee28048e99884cc48
+
+[InstructionMem]
+A/InstructionMem=22|../src/InstructionMem.v|4|1*406768
+BinW64/InstructionMem=3*164909
+R=../src/InstructionMem.v|4
+SLP=3*165637
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|b86a443a1d82ec234d09f8a4c7b8cd6bfea497090fa58ce3e0286f0618196391df46110f4321f984a967a059b21d9c77
+
+[adder1bit]
+A/adder1bit=22|../src/Add.v|3|1*229102
+BinW64/adder1bit=3*95927
+R=../src/Add.v|3
+SLP=3*96046
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|3e220c75c3380272d6cf1bf8e6bfc057a30025de53f2eeed202138bbfcd65f144fc3a0e5c9ca7d2522474513aab1909d
+
+[instrmemstimulous]
+A/instrmemstimulous=22|../src/InstructionMem.v|55|1*6256
+BinW64/instrmemstimulous=3*1974
+R=../src/InstructionMem.v|55
+SLP=3*2843
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|f37398324a78567465d99e9d11b237fb2849df4454cfd9e017c36ec0cabd457d2de8c8969a8eeeaab5e4b4ce83c112a3
+
+[instrmemstimulus]
+A/instrmemstimulus=22|../src/InstructionMem.v|55|1*412653
+BinW64/instrmemstimulus=3*166692
+R=../src/InstructionMem.v|55
+SLP=3*167588
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|f37398324a78567465d99e9d11b237fbf678de1516add2a719283e955ae6ab44504179f6423d874353fe6c32007415a0
+
+[regfile]
+A/regfile=22|../src/regfile.v|3|1*235775
+BinW64/regfile=3*98024
+R=../src/regfile.v|3
+SLP=3*98141
+Version=13.0.376.8320 (Windows64)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|eae5b70d9b278c889f76eca13722f75226527262ddaa47cb266f3a3c4d9b973ab4d5407515dd6438c1f4855226e5766e
+
+[~U]
+$root=12|0*127077|
+Add=12|0*70921||0x10
+InstructionMem=12|0*127339|
+adder1bit=12|0*70707|
+instrmemstimulous=12|0*413||0x10
+instrmemstimulus=12|0*127554||0x10
+regfile=12|0*71205||0x10

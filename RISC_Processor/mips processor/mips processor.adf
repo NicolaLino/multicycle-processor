@@ -1,0 +1,36 @@
+[Project]
+Current Flow=Multivendor
+VCS=0
+version=4
+Current Config=compile
+[Configurations]
+compile=mips_processor
+[Library]
+mips_processor=.\mips_processor\mips_processor.lib
+[$LibMap$]
+mips_processor=.
+Active_lib=
+[Settings]
+FLOW_TYPE=HDL
+LANGUAGE=VERILOG
+REFRESH_FLOW=1
+FLOWTOOLS=ONLY_IMPL
+ON_SERVERFARM_SYNTH=0
+ON_SERVERFARM_IMPL=0
+ON_SERVERFARM_SIM=0
+[IMPLEMENTATION]
+UCF=
+[Files.Data]
+.\src\InstructionMem.v=Verilog Source Code
+.\src\Add.v=Verilog Source Code
+.\src\regfile.v=Verilog Source Code
+.\src\register.v=Verilog Source Code
+[Files]
+/InstructionMem.v=-1
+/Add.v=-1
+/regfile.v=-1
+/register.v=-1
+[HierarchyViewer]
+HierarchyInformation=
+ShowHide=ShowTopLevel
+Selected=
