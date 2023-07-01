@@ -1,4 +1,4 @@
- `timescale 1 ps / 100 fs	  
+`timescale 1 ps / 100 fs	  
 
 //////////////////////////////////////////////////	 Instruction Memory
 module instructionMem (	
@@ -57,7 +57,7 @@ module instrmemstimulus();
   reg [31:0] addr;
   wire [31:0] instr;
 
-  instructionMem instructionmemory(instr, addr);
+  InstructionMem instructionmemory(instr, addr);
 
   initial begin
     $monitor("Memory Address=%b instruction=%b", addr, instr);

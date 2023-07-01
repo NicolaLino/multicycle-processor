@@ -5,6 +5,8 @@
 module adder1bit(sum, cout, a, b, cin);
   input a, b, cin;
   output sum, cout;
+  
+  wire c1, c2, c3;
 
   // sum = a xor b xor cin
   xor #(50) xor1(sum, a, b, cin);
@@ -19,17 +21,18 @@ endmodule
 ////////////////////////////////////////////////// Adder and substracter
 module addsub(Out,cout,a,b,cin,select);
 	input a,b,cin,select;  // select: 0 for Addition & 1 for Subtraction
-	output Out,cout; 
+	output Out,cout;
+	wire notb, b1;
 	
 	not #(50) not1(notb,b);
 	mux21 mux1(b1,b,notb,select);
 	
-	adder adder1(Out,cout,a,b1,cin);
+	adder1bit adder1(Out,cout,a,b1,cin);
 endmodule
 
 
 ////////////////////////////////////////////////// 32 bit Adder
-module Adder32x32 (S, A, B);
+module adder32x32 (S, A, B);
   output [31:0] S;
   input [31:0] A, B;
   wire [31:0] C;
@@ -69,45 +72,4 @@ module Adder32x32 (S, A, B);
 endmodule
 
 
-////////////////////////////////////////////////// 32 bit Adder and Substracter
-module addsub32(Out, Cout, A, B, Cin, Select);
-  output [31:0] Out;
-  output Cout;
-  input [31:0] A, B;
-  input Cin, Select;
-  
-  wire [31:0] Carry;
-  
-  addsub addsub0(Out[0], Carry[0], A[0], B[0], Cin, Select);
-  addsub addsub1(Out[1], Carry[1], A[1], B[1], Carry[0], Select);
-  addsub addsub2(Out[2], Carry[2], A[2], B[2], Carry[1], Select);
-  addsub addsub3(Out[3], Carry[3], A[3], B[3], Carry[2], Select);
-  addsub addsub4(Out[4], Carry[4], A[4], B[4], Carry[3], Select);
-  addsub addsub5(Out[5], Carry[5], A[5], B[5], Carry[4], Select);
-  addsub addsub6(Out[6], Carry[6], A[6], B[6], Carry[5], Select);
-  addsub addsub7(Out[7], Carry[7], A[7], B[7], Carry[6], Select);
-  addsub addsub8(Out[8], Carry[8], A[8], B[8], Carry[7], Select);
-  addsub addsub9(Out[9], Carry[9], A[9], B[9], Carry[8], Select);
-  addsub addsub10(Out[10], Carry[10], A[10], B[10], Carry[9], Select);
-  addsub addsub11(Out[11], Carry[11], A[11], B[11], Carry[10], Select);
-  addsub addsub12(Out[12], Carry[12], A[12], B[12], Carry[11], Select);
-  addsub addsub13(Out[13], Carry[13], A[13], B[13], Carry[12], Select);
-  addsub addsub14(Out[14], Carry[14], A[14], B[14], Carry[13], Select);
-  addsub addsub15(Out[15], Carry[15], A[15], B[15], Carry[14], Select);
-  addsub addsub16(Out[16], Carry[16], A[16], B[16], Carry[15], Select);
-  addsub addsub17(Out[17], Carry[17], A[17], B[17], Carry[16], Select);
-  addsub addsub18(Out[18], Carry[18], A[18], B[18], Carry[17], Select);
-  addsub addsub19(Out[19], Carry[19], A[19], B[19], Carry[18], Select);
-  addsub addsub20(Out[20], Carry[20], A[20], B[20], Carry[19], Select);
-  addsub addsub21(Out[21], Carry[21], A[21], B[21], Carry[20], Select);
-  addsub addsub22(Out[22], Carry[22], A[22], B[22], Carry[21], Select);
-  addsub addsub23(Out[23], Carry[23], A[23], B[23], Carry[22], Select);
-  addsub addsub24(Out[24], Carry[24], A[24], B[24], Carry[23], Select);
-  addsub addsub25(Out[25], Carry[25], A[25], B[25], Carry[24], Select);
-  addsub addsub26(Out[26], Carry[26], A[26], B[26], Carry[25], Select);
-  addsub addsub27(Out[27], Carry[27], A[27], B[27], Carry[26], Select);
-  addsub addsub28(Out[28], Carry[28], A[28], B[28], Carry[27], Select);
-  addsub addsub29(Out[29], Carry[29], A[29], B[29], Carry[28], Select);
-  addsub addsub30(Out[30], Carry[30], A[30], B[30], Carry[29], Select);
-  addsub addsub31(Out[31], Cout, A[31], B[31], Carry[30], Select);
-endmodule
+
