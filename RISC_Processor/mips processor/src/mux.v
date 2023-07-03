@@ -177,3 +177,17 @@ module mux2x32to32(DataOut, Data0, Data1, Select);
   mux21 mux31(DataOut[31], Data0[31], Data1[31], Select);
 endmodule
 
+//////////////////////////////////////////////////	mux 3x1 32 to 32
+module mux3x32to32(DataOut,A,B,C,Select);
+  output [31:0] DataOut;
+  input [1:0] Select;
+  input [31:0] A,B,C;
+  wire [31:0] DataOut1,DataOut2;
+
+  mux2x32to32 muxAC(DataOut1,A,C, Select[1]);
+  mux2x32to32 muxBA(DataOut2,B,A, Select[1]);
+  mux2x32to32 muxABC(DataOut,DataOut1,DataOut2, Select[0]);
+  // 11 & 00 == A  01==B  10==C
+endmodule
+
+
