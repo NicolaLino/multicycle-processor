@@ -2,9 +2,9 @@
 
 
 ////////////////////////////////////////////////// ALU 32bit 
-module alu(Output, zero, overflow, negative, BussA, BussB, Shamt, controlSignal);
+module alu(Output, carryOut, zero, overflow, negative, BussA, BussB, Shamt, controlSignal);
 	// alu outputs
-	output overflow, negative, zero;
+	output overflow, negative, zero, carryOut;
 	output signed [31:0] Output;
 	// alu inputs
 	input signed [31:0] BussA;
@@ -13,9 +13,9 @@ module alu(Output, zero, overflow, negative, BussA, BussB, Shamt, controlSignal)
 	input [3:0] controlSignal;
 
 	// registers declarations
-	reg [31:0] BussBComp;
+	reg signed [31:0] BussBComp;
 	reg signed [31:0] Output;
-	reg overflow, negative, zero;
+	reg overflow, negative, zero, carryOut;
 
 	// control signals
 	parameter 	AND  = 4'b0001,
@@ -34,17 +34,19 @@ module alu(Output, zero, overflow, negative, BussA, BussB, Shamt, controlSignal)
 			AND: begin
 				Output = BussA & BussB;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			ADD: begin
 				Output = BussA + BussB;
+				carryOut = (BussA[31] && BussB[31]) || (!Output[31] && (BussA[31] || BussB[31]));
 				if ((BussA[31] && BussB[31]) && !Output[31]) overflow = 1'b1;
 				else if ((!BussA[31] && !BussB[31]) && Output[31]) overflow = 1'b1;
 				else overflow = 1'b0;
-				
 			end
 			SUB: begin
 				BussBComp = ~BussB + 1;
 				Output = BussA + BussBComp;
+				carryOut = (BussA[31] && BussBComp[31]) || (!Output[31] && (BussA[31] || BussBComp[31]));
 				if ((BussA[31] && BussBComp[31]) && !Output[31]) overflow = 1'b1;
 				else if ((!BussA[31] && !BussBComp[31]) && Output[31]) overflow = 1'b1;
 				else overflow = 1'b0;
@@ -52,34 +54,38 @@ module alu(Output, zero, overflow, negative, BussA, BussB, Shamt, controlSignal)
 			CMP: begin
 				BussBComp = ~BussB + 1;
 				Output = BussA + BussBComp;
-				if ((BussA[31] && BussBComp[31]) && !Output[31]) overflow = 1'b1;
-				else if ((!BussA[31] && !BussBComp[31]) && Output[31]) overflow = 1'b1;
-				else overflow = 1'b0;
+				carryOut = (BussA[31] && BussBComp[31]) || (!Output[31] && (BussA[31] || BussBComp[31]));
 			end
 			BEQ: begin
 				if (BussA == BussB) Output = 32'b0;
 				else Output = 32'b1;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			SLL: begin
 				Output = BussA << Shamt;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			SLR: begin
 				Output = BussA >> Shamt;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			SLLV: begin
 				Output = BussA << BussB;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			SLRV: begin
 				Output = BussA >> BussB;
 				overflow = 1'b0;
+				carryOut = 1'b0;
 			end
 			default: begin
 				Output = 32'bx;
 				overflow = 1'bx;
+				carryOut = 1'bx;
 			end
 		endcase
 	end

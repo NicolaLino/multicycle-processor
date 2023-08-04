@@ -191,3 +191,18 @@ module mux3x32to32(DataOut,A,B,C,Select);
 endmodule
 
 
+////////////////////////////////////////////////// mux 4x1 32 to 32
+module mux4x32to32(DataOut, A, C, B, D, Select);
+   output [31:0] DataOut;
+  input [31:0] A, B, C, D;
+  input [1:0] Select;
+
+  wire [31:0] Out0, Out1, Out2;
+
+  mux2x32to32 muxAB(Out0, A, B, Select[1]);
+  mux2x32to32 muxCD(Out1, C, D, Select[1]);
+  mux2x32to32 muxABC(Out2, Out0, Out1, Select[0]);
+
+  assign DataOut = Out2;
+endmodule
+

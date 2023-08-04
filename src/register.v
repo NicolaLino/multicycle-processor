@@ -9,7 +9,7 @@ module DFlipFlop (q, d, reset, clk);
 
   always @(posedge clk or posedge reset) begin
     if (reset)
-      q <= 0; // On reset, set q to 0
+      q <= 1'bx; // On reset, set q to 0
     else
       q <= d; // Otherwise, assign d to q
   end
@@ -73,8 +73,33 @@ module register(RegOut, RegIn, WriteEn, reset, clk);
   RegBit bit0(RegOut[0], RegIn[0], WriteEn, reset, clk);
 endmodule
 
+/////////////////////////////////////////////////////   4 bit register 
+
+module reg4bit(RegOut, RegIn, WriteEn, reset, clk);
+  output [3:0] RegOut;
+  input [3:0] RegIn;
+  input WriteEn, reset, clk;
+
+  RegBit bit3(RegOut[3], RegIn[3], WriteEn, reset, clk);
+  RegBit bit2(RegOut[2], RegIn[2], WriteEn, reset, clk);
+  RegBit bit1(RegOut[1], RegIn[1], WriteEn, reset, clk);
+  RegBit bit0(RegOut[0], RegIn[0], WriteEn, reset, clk);
+endmodule
 
 
+/////////////////////////////////////////////////////   5 bit register 
+module reg5bit(RegOut, RegIn, WriteEn, reset, clk);
+  output [4:0] RegOut;
+  input [4:0] RegIn;
+  input WriteEn, reset, clk;
+
+  RegBit bit4(RegOut[4], RegIn[4], WriteEn, reset, clk);
+  RegBit bit3(RegOut[3], RegIn[3], WriteEn, reset, clk);
+  RegBit bit2(RegOut[2], RegIn[2], WriteEn, reset, clk);
+  RegBit bit1(RegOut[1], RegIn[1], WriteEn, reset, clk);
+  RegBit bit0(RegOut[0], RegIn[0], WriteEn, reset, clk);
+
+endmodule
 
 
 

@@ -10,7 +10,6 @@ module controlUnit(
     output reg Branch,
     output reg Jump,
     output reg JumpJAL,
-    output reg PC4,
     input [4:0] Opcode,
     input [1:0] instructionType
 );
@@ -30,7 +29,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00001: begin // ADD
                         RegDst = 1'b1;
@@ -42,7 +40,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00010: begin // SUB
                         RegDst = 1'b1;
@@ -54,19 +51,17 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00011: begin // CMP
                         RegDst = 1'b1;
                         ALUSrc = 1'b0;
-                        WBdata = 1'bx;
+                        WBdata = 1'b0;
                         RegWrite = 1'b1;
                         MemRead = 1'b0;
                         MemWrite = 1'b0;
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     default: begin
                         RegDst = 1'bx;
@@ -78,14 +73,13 @@ module controlUnit(
                         Branch = 1'bx;
                         Jump = 1'bx;
                         JumpJAL = 1'bx;
-                        PC4 = 1'bx;
                     end
                 endcase
 
             2'b01: // I-Type Instructions
                 case (Opcode)
                     5'b00000: begin // ANDI
-                        RegDst = 1'bx;
+                        RegDst = 1'b1;
                         ALUSrc = 1'b1;
                         WBdata = 1'b0;
                         RegWrite = 1'b1;
@@ -94,10 +88,9 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00001: begin // ADDI
-                        RegDst = 1'bx;
+                        RegDst = 1'b1;
                         ALUSrc = 1'b1;
                         WBdata = 1'b0;
                         RegWrite = 1'b1;
@@ -106,10 +99,9 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00010: begin // LW
-                        RegDst = 1'bx;
+                        RegDst = 1'b1;
                         ALUSrc = 1'b1;
                         WBdata = 1'b1;
                         RegWrite = 1'b1;
@@ -118,31 +110,28 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00011: begin // SW
-                        RegDst = 1'b0;
+                        RegDst = 1'b1;
                         ALUSrc = 1'b1;
-                        WBdata = 1'bx;
+                        WBdata = 1'b0;
                         RegWrite = 1'b0;
                         MemRead = 1'b0;
                         MemWrite = 1'b1;
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00100: begin // BEQ
                         RegDst = 1'b0;
                         ALUSrc = 1'b0;
-                        WBdata = 1'bx;
+                        WBdata = 1'b0;
                         RegWrite = 1'b0;
                         MemRead = 1'b0;
                         MemWrite = 1'b0;
                         Branch = 1'b1;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b0;
                     end
                     default: begin
                         RegDst = 1'bx;
@@ -154,35 +143,32 @@ module controlUnit(
                         Branch = 1'bx;
                         Jump = 1'bx;
                         JumpJAL = 1'bx;
-                        PC4 = 1'bx;
                     end
                 endcase
 
             2'b10: // J-Type Instructions
                 case (Opcode)
                     5'b00000: begin // J
-                        RegDst = 1'bx;
-                        ALUSrc = 1'bx;
-                        WBdata = 1'bx;
+                        RegDst = 1'b0;
+                        ALUSrc = 1'b0;
+                        WBdata = 1'b0;
                         RegWrite = 1'b0;
                         MemRead = 1'b0;
                         MemWrite = 1'b0;
                         Branch = 1'b0;
                         Jump = 1'b1;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b0;
                     end
                     5'b00001: begin // JAL
-                        RegDst = 1'bx;
-                        ALUSrc = 1'bx;
-                        WBdata = 1'bx;
+                        RegDst = 1'b0;
+                        ALUSrc = 1'b0;
+                        WBdata = 1'b0;
                         RegWrite = 1'b0;
                         MemRead = 1'b0;
                         MemWrite = 1'b0;
                         Branch = 1'b0;
                         Jump = 1'b1;
                         JumpJAL = 1'b1;
-                        PC4 = 1'b0;
                     end
                     default: begin
                         RegDst = 1'bx;
@@ -194,7 +180,6 @@ module controlUnit(
                         Branch = 1'bx;
                         Jump = 1'bx;
                         JumpJAL = 1'bx;
-                        PC4 = 1'bx;
                     end
                 endcase
 
@@ -210,7 +195,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00001: begin // SLR
                         RegDst = 1'b1;
@@ -222,7 +206,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00010: begin // SLLV
                         RegDst = 1'b1;
@@ -234,7 +217,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     5'b00011: begin // SLRV
                         RegDst = 1'b1;
@@ -246,7 +228,6 @@ module controlUnit(
                         Branch = 1'b0;
                         Jump = 1'b0;
                         JumpJAL = 1'b0;
-                        PC4 = 1'b1;
                     end
                     default: begin
                         RegDst = 1'bx;
@@ -258,7 +239,6 @@ module controlUnit(
                         Branch = 1'bx;
                         Jump = 1'bx;
                         JumpJAL = 1'bx;
-                        PC4 = 1'bx;
                     end
                 endcase
 
@@ -272,8 +252,224 @@ module controlUnit(
                 Branch = 1'bx;
                 Jump = 1'bx;
                 JumpJAL = 1'bx;
-                PC4 = 1'bx;
             end
         endcase
     end
 endmodule
+
+
+
+
+
+
+`timescale 1 ps / 100 fs
+
+
+module CPU(clk, reset);
+    input clk, reset;
+    
+    wire [31:0] init_PC, PC, PCin, EXID_PC4,ID_PC4, EX_PC4, stack_PC4;
+    wire [31:0] PC4;
+    wire [31:0] PCb,PCj,PC4j,PC4b; // PC signals 
+    wire [31:0] Instruction,ID_Instruction; // Output of Instruction Memory
+    wire [4:0] Opcode; // Opcode
+    wire [1:0] instructionType; // 00: R-type, 01: I-type, 10: J-type, 11: S-type
+
+    //Extend 14
+    wire [13:0] imm14; // immediate in I-type instruction
+    wire [31:0] imm14_Ext, EX_imm14;
+
+    //Extend 24
+    wire [23:0] imm24; // immediate in J-type instruction
+    wire [31:0] imm24_Ext;
+
+    //Register File
+    wire [4:0] rs1,rs2,rd,sa, rb, WB_rd, EX_rd, EXMEM_rd, EX_SA;
+    wire stopBit;
+    wire [31:0] WB_WriteData, ReadData1, ReadData2,ReadData1Out,ReadData2Out, EX_ReadData1, EX_ReadData2;
+    
+    //ALU
+    wire signed [31:0] ALU_Result,EX_ALU_Result ,Bus_B_ALU, EXMEM_Bus_B_ALU;
+    wire ALU_Zero, ALU_Overflow, ALU_Negative, ALU_CarryOut;
+
+    //Data Memory
+    wire [31:0] WriteDataOfMem,MEM_ReadDataOfMem,WB_ReadDataOfMem;
+
+    //Control signals
+    wire RegDst,ALUSrc,WBdata,RegWrite,MemRead,MemWrite,Branch,Jump, JumpJAL;
+	wire WB_RegWrite,EX_branch, EX_jump, EX_ALUSrc, EX_MemRead, EX_MemWrite, EX_WBdata, EX_RegWrite, EXMEM_MemRead, EXMEM_MemWrite, EXMEM_WBdata, EXMEM_RegWrite;
+    //ALU Control signals
+    wire [3:0] ALUControl, EX_ALUControl;
+
+    //PC Control signals
+    wire [1:0] PCSrc;
+
+    //Stack Pointer
+    wire [31:0] stack_Out; // not connected to anything yet (not used) 
+    wire stack_empty, stack_full;
+
+    wire [2:0] Present_State, Next_State;
+    wire [6:0] Func;
+
+    //========================IF STAGE========================//
+
+    PC PC1(PC,PCin,reset,clk);
+    
+    adder32x32 add1(PC4, PC, {29'b0,3'b100}); // PC4 = PC + 4
+
+    instructionMem Inst_Mem(Instruction, PC);
+
+    register Inst_Reg(ID_Instruction,Instruction,1'b1, reset,clk);
+
+
+    //========================ID STAGE========================//
+    assign Opcode = ID_Instruction[31:27];
+    assign rs1 = ID_Instruction[26:22];
+    assign rd = ID_Instruction[21:17];
+    assign rs2 = ID_Instruction[16:12];
+    assign instructionType = ID_Instruction[2:1];
+    assign stopBit = ID_Instruction[0];
+    assign imm14 = ID_Instruction[16:3];
+    assign imm24 = ID_Instruction[26:3];
+    assign sa = ID_Instruction[11:7];
+    assign Func = {ID_Instruction[2:1], ID_Instruction[31:27]};
+
+    //Main Control Unit
+    //controlUnit CU(RegDst,ALUSrc,WBdata,RegWrite,MemRead,MemWrite,Branch,Jump,JumpJAL,Opcode,instructionType);
+
+    //control unit with state
+    controlState CS(RegDst,ALUSrc,WBdata,RegWrite,MemRead,MemWrite,Branch,Jump,JumpJAL,Next_State, Present_State, Func);
+    StateReg SR(Present_State,Next_State,reset,clk);
+
+    //ALU Control Unit
+    ALUControl ALU_CU(ALUControl,Opcode,instructionType);
+
+    // mux Rs2 or rd to register file 
+    mux2x5to5 mux1(rb,rd,rs2,RegDst);
+    
+
+    //Register File
+    regfile Register_File(ReadData1,ReadData2,WB_WriteData,rs1,rb,WB_rd,1'b1,WB_RegWrite);
+
+
+    //Sign Extend 14
+    sign_extend14 sign_ext(imm14_Ext,imm14);
+    //Sign Extend 24
+    sign_extend24 sign_ext24(imm24_Ext,imm24);
+    
+    // register for PC4
+    register ID_PCr(ID_PC4,PC4,1'b1,reset,clk);
+
+    //adder for jump
+    adder32x32 add3(PCj,ID_PC4,imm24_Ext);
+
+    //adder for branch
+    adder32x32 add2(PCb,ID_PC4,imm14_Ext);
+
+    register PC4br(PC4b,PCb,1'b1,reset,clk);
+    register PC4jr(PC4j,PCj,1'b1,reset,clk);
+
+    //Stack Pointer
+    stackPointer SP1(stack_Out,stack_empty,stack_full,ID_PC4,JumpJAL,stopBit,clk);
+    
+    //========================EX STAGE========================//
+    register IDEX_PC4(EX_PC4,ID_PC4,1'b1,reset,clk);
+    
+    //register for register file out1 and out2
+    register IDEX_ReadData1(EX_ReadData1,ReadData1,1'b1,reset,clk);
+    register IDEX_ReadData2(EX_ReadData2,ReadData2,1'b1,reset,clk);
+
+    //register for branch signal
+    RegBit IDEX_branch(EX_branch,Branch,1'b1,reset,clk);
+
+    //register for jump signal
+    //RegBit IDEX_jump(EX_jump,Jump,1'b1,reset,clk);
+
+    //register for ALUsrc signal
+    RegBit IDEX_ALUSrc(EX_ALUSrc,ALUSrc,1'b1,reset,clk);
+
+    //register for MemRead signal
+    RegBit IDEX_MemRead(EX_MemRead,MemRead,1'b1,reset,clk);
+
+    //register for MemWrite signal
+    RegBit IDEX_MemWrite(EX_MemWrite,MemWrite,1'b1,reset,clk);
+
+    //register for WBdata signal
+    RegBit IDEX_WBdata(EX_WBdata,WBdata,1'b1,reset,clk);
+
+    //register for RegWrite signal
+    RegBit IDEX_RegWrite(EX_RegWrite,RegWrite,1'b1,reset,clk);
+
+    //regitster for rd
+    reg5bit IDEX_rd(EX_rd,rd,1'b1,reset,clk);
+
+    //regiter imm14
+    register IDEX_imm14(EX_imm14,imm14_Ext,1'b1,reset,clk);
+
+    //register ALUControl
+    reg4bit IDEX_ALUControl(EX_ALUControl,ALUControl,1'b1,reset,clk);
+
+    // mux 2x32 to 32 to select source Bus B of ALU
+    mux2x32to32 mux2(Bus_B_ALU,EX_ReadData2,EX_imm14,EX_ALUSrc);
+
+    //register for sa
+    reg5bit IDEX_sa(EX_SA,sa,1'b1,reset,clk);
+
+    //ALU
+    alu ALU(ALU_Result, ALU_CarryOut, ALU_Zero, ALU_Overflow, ALU_Negative, EX_ReadData1, Bus_B_ALU, EX_SA, EX_ALUControl);
+
+    //========================MEM STAGE========================//
+
+    //ALU out Register
+    register EXMEM_ALU_Result(EX_ALU_Result,ALU_Result,1'b1,reset,clk);
+
+    // data in register
+    register EXMEM_ReadData2(EXMEM_Bus_B_ALU,EX_ReadData2,1'b1,reset,clk);
+
+    //register for MemRead signal
+    RegBit EXMEM_MemReadr(EXMEM_MemRead,EX_MemRead,1'b1,reset,clk);
+
+    //register for MemWrite signal
+    RegBit EXMEM_MemWriter(EXMEM_MemWrite,EX_MemWrite,1'b1,reset,clk);
+
+    //register for WBdata signal
+    RegBit EXMEM_WBdatar(EXMEM_WBdata,EX_WBdata,1'b1,reset,clk);
+
+    //register for RegWrite signal
+    RegBit EXMEM_RegWriter(EXMEM_RegWrite,EX_RegWrite,1'b1,reset,clk);
+
+    //register for rd
+    reg5bit EXMEM_rdr(EXMEM_rd,EX_rd,1'b1,reset,clk);
+
+    //Data Memory
+    dataMem Data_Mem(WriteDataOfMem,EX_ALU_Result,EXMEM_Bus_B_ALU,EXMEM_MemWrite,EXMEM_MemRead);
+
+
+
+    //========================WB STAGE========================//
+
+    //WB mux
+    mux2x32to32 mux3(MEM_ReadDataOfMem,EX_ALU_Result,WriteDataOfMem,EXMEM_WBdata);
+
+    //register for RegWrite signal
+    RegBit MEMWB_RegWrite(WB_RegWrite,EXMEM_RegWrite,1'b1,reset,clk);
+
+    //register for rd
+    reg5bit MEMWB_rd(WB_rd,EXMEM_rd,1'b1,reset,clk);
+
+    //Memory out register
+    register MEMWB_ReadDataOfMem(WB_WriteData,MEM_ReadDataOfMem,1'b1,reset,clk);
+    //========================================================//
+
+    //PC Control Unit
+    PC_Control PC_CU(PCSrc,Jump,EX_branch,ALU_Zero);
+
+    //mux for PC or stack pointer out
+    mux2x32to32 mux4(stack_PC4,EX_PC4,stack_Out,stopBit);
+
+    //PC MUX
+    mux3x32to32 mux5(PCin,EX_PC4,PC4j,PC4b,PCSrc);
+
+endmodule
+
+
